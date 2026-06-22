@@ -4,7 +4,7 @@ using SimpleAgent;
 
 var url = new Uri("http://localhost:11434");
 
-var key = "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";
+var key = "";
 
 // var agent = Factories.FactoryAnthopic(key)
 var agent = Factories.FactoryOllama(url)
