@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>JacksonVeroneze.OrderAgent.Domain</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JacksonVeroneze.NET.DomainObjects"/>
+    <PackageReference Include="JacksonVeroneze.NET.Result"/>
+  </ItemGroup>
+
+</Project>

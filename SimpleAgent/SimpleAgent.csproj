@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>06efec3c-6672-497d-a53e-08cd34da9f94</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Anthropic" Version="12.27.0" />
+    <PackageReference Include="Microsoft.Agents.AI" Version="1.9.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Abstractions" Version="1.9.0" />
+    <PackageReference Include="Microsoft.Agents.AI.Anthropic" Version="1.9.0-preview.260603.1" />
+    <PackageReference Include="Microsoft.Agents.AI.OpenAI" Version="1.9.0" />
+    <PackageReference Include="Microsoft.Extensions.AI" Version="10.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.8" />
+    <PackageReference Include="OllamaSharp" Version="5.4.25" />
+  </ItemGroup>
+
+</Project>
