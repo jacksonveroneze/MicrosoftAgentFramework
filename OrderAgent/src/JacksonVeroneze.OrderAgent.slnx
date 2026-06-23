@@ -5,6 +5,7 @@
     <File Path="../LICENSE" />
     <File Path="..\..\.gitattributes" />
     <File Path="..\..\.gitignore" />
+    <File Path="..\CLAUDE.md" />
     <File Path=".editorconfig" />
     <File Path="AssemblyInfo.cs" />
     <File Path="BannedSymbols.txt" />
@@ -29,6 +30,7 @@
     <File Path="../infra/docker/traefik/conf.yml" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="main/Agent/Agent.csproj" />
     <Project Path="main/Api/Api.csproj" />
     <Project Path="main/Application/Application.csproj" />
     <Project Path="main/Domain/Domain.csproj" />

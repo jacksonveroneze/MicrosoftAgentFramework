@@ -2,7 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using JacksonVeroneze.OrderAgent.Application.Abstractions.Repositories;
 using JacksonVeroneze.OrderAgent.Application.Abstractions.Services;
 using JacksonVeroneze.OrderAgent.Application.v1.Orders.GetById;
-using JacksonVeroneze.OrderAgent.Infrastructure.Repositories.Profile;
+using JacksonVeroneze.OrderAgent.Infrastructure.Repositories.Order;
 using JacksonVeroneze.OrderAgent.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 

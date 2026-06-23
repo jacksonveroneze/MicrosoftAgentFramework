@@ -5,13 +5,9 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      //"applicationUrl": "http://0.0.0.0:7000",
+      "applicationUrl": "http://0.0.0.0:7000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "Kestrel__Endpoints__Http1__Url": "http://0.0.0.0:7000",
-        "Kestrel__Endpoints__Http1__Protocols": "Http1",
-        "Kestrel__Endpoints__Http2__Url": "http://0.0.0.0:7001",
-        "Kestrel__Endpoints__Http2__Protocols": "Http2"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }

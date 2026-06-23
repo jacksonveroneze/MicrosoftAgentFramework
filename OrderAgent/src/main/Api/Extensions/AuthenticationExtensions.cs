@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using JacksonVeroneze.OrderAgent.Api.Security;
 using JacksonVeroneze.OrderAgent.Infrastructure.Configurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -38,8 +37,7 @@ public static class AuthenticationExtensions
                         ValidAudience = appConfiguration.Auth.Audience,
                         ClockSkew = TimeSpan.Zero,
                     };
-            })
-            .AddApiKeyAuthenticationScheme(configuration);
+            });
 
         return services;
     }

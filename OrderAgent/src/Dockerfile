@@ -9,7 +9,7 @@ COPY ./main/Api/Api.csproj ./main/Api/
 COPY ./main/Application/Application.csproj ./main/Application/
 COPY ./main/Domain/Domain.csproj ./main/Domain/
 COPY ./main/Infrastructure/Infrastructure.csproj ./main/Infrastructure/
-COPY *.sln ./
+COPY *.slnx ./
 COPY nuget.config ./
 COPY Directory.Build.props ./
 COPY Directory.Packages.props ./

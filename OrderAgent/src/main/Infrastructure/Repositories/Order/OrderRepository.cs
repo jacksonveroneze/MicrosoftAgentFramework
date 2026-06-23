@@ -3,7 +3,7 @@ using JacksonVeroneze.NET.EntityFramework.Interfaces;
 using JacksonVeroneze.OrderAgent.Application.Abstractions.Repositories;
 using JacksonVeroneze.OrderAgent.Infrastructure.Contexts;
 
-namespace JacksonVeroneze.OrderAgent.Infrastructure.Repositories.Profile;
+namespace JacksonVeroneze.OrderAgent.Infrastructure.Repositories.Order;
 
 [ExcludeFromCodeCoverage]
 public class OrderRepository(

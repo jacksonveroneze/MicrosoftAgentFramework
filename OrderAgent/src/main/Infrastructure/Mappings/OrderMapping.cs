@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JacksonVeroneze.OrderAgent.Infrastructure.Mappings;
 
-internal sealed class ProfileMapping : IEntityTypeConfiguration<Order>
+internal sealed class OrderMapping : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.ToTable("profile", "profile");
+        builder.ToTable("order", "order");
 
-        builder.HasKey(profile => profile.Id)
-            .HasName("pk_profile");
+        builder.HasKey(order => order.Id)
+            .HasName("pk_order");
 
         builder.Property<int>("Version")
             .HasColumnName("version")

@@ -25,8 +25,6 @@ internal static class WebApplicationBuilderExtensions
         private WebApplicationBuilder ConfigureDefaultServices(
             AppConfiguration appConfiguration)
         {
-            builder.Services.AddMcp(appConfiguration);
-
             builder.Services
                 .AddProblemDetails()
                 .AddExceptionHandler<CustomExceptionHandler>()

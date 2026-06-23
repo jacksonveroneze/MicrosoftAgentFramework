@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 namespace JacksonVeroneze.OrderAgent.Api.Middlewares;
 
 internal sealed class CustomExceptionHandler(
+    IHostEnvironment hostEnvironment,
     IProblemDetailsService problemDetailsService)
     : IExceptionHandler
 {
@@ -20,7 +21,7 @@ internal sealed class CustomExceptionHandler(
             ProblemDetails =
             {
                 Title = "An error occurred",
-                Detail = exception.Message,
+                Detail = hostEnvironment.IsDevelopment() ? exception.Message : null,
                 Type = exception.GetType().Name,
                 Status = exception switch
                 {

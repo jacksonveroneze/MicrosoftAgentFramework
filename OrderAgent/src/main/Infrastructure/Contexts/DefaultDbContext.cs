@@ -18,7 +18,7 @@ public class DefaultDbContext(
 
         modelBuilder.HasDefaultSchema(Constants.SchemaName);
 
-        modelBuilder.ApplyConfiguration(new ProfileMapping());
+        modelBuilder.ApplyConfiguration(new OrderMapping());
 
         modelBuilder.Entity<Order>()
             .HasQueryFilter(field => field.DeletedAt == null);

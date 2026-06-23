@@ -21,7 +21,7 @@ public class GetByIdOrderUseCase(
         if (entity is null)
         {
             return Result<GetByIdOrderResponse>
-                .FromNotFound(DomainErrors.ProfileError.NotFound);
+                .FromNotFound(OrderErrors.OrderError.NotFound);
         }
 
         var response = mapper.Map<Domain.Entities.Order,
