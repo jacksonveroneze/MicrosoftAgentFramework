@@ -29,6 +29,9 @@
     <File Path="../infra/docker/certs/cert.key" />
     <File Path="../infra/docker/traefik/conf.yml" />
   </Folder>
+  <Folder Name="/SolutionItems/openspec/">
+    <File Path="..\openspec\config.yaml" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="main/Agent/Agent.csproj" />
     <Project Path="main/Api/Api.csproj" />
