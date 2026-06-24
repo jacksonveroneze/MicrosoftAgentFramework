@@ -48,7 +48,18 @@ Quando houver dúvida entre soluções válidas, escolha a mais simples de enten
 
 ---
 
-## 4. Arquitetura
+## 4. Idioma e nomenclatura
+
+- Todo código deve usar nomes em inglês.
+- Classes, métodos, propriedades, records, interfaces, enums, variáveis, namespaces, arquivos e pastas técnicas devem ser nomeados em inglês.
+- Documentação, comentários explicativos e arquivos OpenSpec podem ser escritos em português.
+- Não misturar nomes em português no código C#.
+- Exemplos corretos: `Order`, `OrderMapping`, `GetOrdersByAssetUseCase`, `CheckOrdersByAssetTool`.
+- Exemplos incorretos: `Ordem`, `MapeamentoOrdem`, `ConsultarOrdemPorAtivoUseCase`.
+
+---
+
+## 5. Arquitetura
 
 Use Clean Architecture com separação clara de responsabilidades.
 
@@ -74,7 +85,7 @@ Regras:
 
 ---
 
-## 5. Organização de projetos
+## 6. Organização de projetos
 
 Estrutura padrão:
 
@@ -99,7 +110,7 @@ Não crie projetos, pastas ou camadas sem responsabilidade clara.
 
 ---
 
-## 6. Padrões C#
+## 7. Padrões C#
 
 - Use file-scoped namespaces e braces em blocos de controle.
 - Respeite limite de linha de 120 caracteres.
@@ -123,7 +134,7 @@ Nomenclatura:
 
 ---
 
-## 7. Async/Await
+## 8. Async/Await
 
 - Todo método assíncrono deve terminar com `Async`.
 - Propague `CancellationToken` quando aplicável.
@@ -140,7 +151,7 @@ Evite sync-over-async em ASP.NET Core para não causar thread pool starvation.
 
 ---
 
-## 8. Erros e validações
+## 9. Erros e validações
 
 - Use Result Pattern para erros esperados de negócio/aplicação.
 - Use exceções para falhas inesperadas, não para fluxo normal.
@@ -155,7 +166,7 @@ Erros esperados incluem validação, not found, conflito, regra violada, estado 
 
 ---
 
-## 9. Logging, observabilidade e segurança
+## 10. Logging, observabilidade e segurança
 
 - Use logging estruturado com Serilog quando disponível.
 - Inclua correlation id, trace id ou request id quando disponíveis.
@@ -175,7 +186,7 @@ Em decisões sensíveis, escolha o padrão mais seguro.
 
 ---
 
-## 10. Anti-overengineering
+## 11. Anti-overengineering
 
 Não adicione sem necessidade clara: generic repository, unit of work sobre EF Core sem valor claro, mediator pipeline, CQRS completo, domain events, microservices, base classes genéricas, factories desnecessárias, reflection desnecessária, abstrações com uma única implementação, extension methods sem ganho claro ou frameworks internos.
 
@@ -183,7 +194,7 @@ Antes de criar uma abstração, valide se ela reduz acoplamento na camada corret
 
 ---
 
-## 11. Fluxo de trabalho do agente
+## 12. Fluxo de trabalho do agente
 
 Antes de alterar, leia o código existente, o `CLAUDE.md` da raiz e o da camada/projeto alvo, entenda os padrões atuais, identifique testes relacionados e faça plano breve para mudanças não triviais.
 

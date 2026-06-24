@@ -10,18 +10,27 @@ public class OrderRepository(
     IEfCoreRepository<Domain.Entities.Order, DefaultDbContext> efRepository)
     : IOrderRepository
 {
-    #region read
-
     public async Task<Domain.Entities.Order?> GetByIdAsync(
         Guid id,
         CancellationToken cancellationToken)
     {
         var result = await efRepository.GetByIdAsync(
-            conf => conf.Id == id,
+            order => order.Id == id,
             cancellationToken);
 
         return result;
     }
 
-    #endregion
+    public async Task<int> CountByTickerAsync(
+        string ticker,
+        Guid userId,
+        CancellationToken cancellationToken)
+    {
+        var result = await efRepository.CountAsync(
+            order => order.AssetTicker == ticker
+                     && order.UserId == userId,
+            cancellationToken);
+
+        return (int)result;
+    }
 }
