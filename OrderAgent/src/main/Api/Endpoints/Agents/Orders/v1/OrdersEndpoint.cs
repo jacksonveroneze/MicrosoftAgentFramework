@@ -1,8 +1,10 @@
+using System.Text.Json;
 using Asp.Versioning;
 using FluentValidation;
 using JacksonVeroneze.OrderAgent.Agent.Agents.Orders;
 using JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 using JacksonVeroneze.OrderAgent.Api.Extensions;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using OrdersAgentRequest = JacksonVeroneze.OrderAgent.Api.Endpoints.Agents.Orders.v1.Models.OrdersAgentRequest;
 using OrdersAgentResponse = JacksonVeroneze.OrderAgent.Api.Endpoints.Agents.Orders.v1.Models.OrdersAgentResponse;
@@ -11,7 +13,7 @@ namespace JacksonVeroneze.OrderAgent.Api.Endpoints.Agents.Orders.v1;
 
 internal static class OrdersEndpoint
 {
-    private const string Resource = "orders/messages";
+    private const string Resource = "orders/chat";
     private const int Version = 1;
 
     public static WebApplication AddOrdersEndpoints(
@@ -69,6 +71,17 @@ internal static class OrdersEndpoint
             .Produces(StatusCodes.Status401Unauthorized)
             .Produces(StatusCodes.Status403Forbidden)
             .Produces(StatusCodes.Status500InternalServerError);
+
+        builder.MapPost("stream", (
+            SendOrdersAgentMessageRequest request,
+            IOrdersAgent ordersAgent,
+            CancellationToken cancellationToken) =>
+        {
+            var stream = ordersAgent.RunStreamAsync(
+                request, cancellationToken);
+
+            return Results.ServerSentEvents(stream);
+        });
 
         return builder;
     }

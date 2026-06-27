@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 using JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 using Microsoft.Agents.AI;
 
@@ -31,5 +32,26 @@ internal sealed class OrdersAgent(AIAgent agent) : IOrdersAgent
             MessageCount: response.Messages.Count,
             Messages: messages,
             RawText: response.Text);
+    }
+
+    public async IAsyncEnumerable<OrdersAgentStreamEvent> RunStreamAsync(
+        SendOrdersAgentMessageRequest request,
+        [EnumeratorCancellation] CancellationToken cancellationToken)
+    {
+        var stream = agent.RunStreamingAsync(
+            request.Message, cancellationToken: cancellationToken);
+
+        await foreach (var update in stream.WithCancellation(cancellationToken))
+        {
+            if (!string.IsNullOrWhiteSpace(update.Text))
+            {
+                yield return new OrdersAgentStreamEvent(
+                    Type: "message", Text: update.Text);
+            }
+        }
+
+        yield return new OrdersAgentStreamEvent(
+            Type: "completed",
+            Text: string.Empty);
     }
 }
