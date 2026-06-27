@@ -1,5 +1,5 @@
 using System.Collections.Immutable;
-using JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+using JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 using Microsoft.Agents.AI;
 
 namespace JacksonVeroneze.OrderAgent.Agent.Agents.Orders;

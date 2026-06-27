@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.OrderAgent.Agent;
+namespace JacksonVeroneze.OrderAgent.Agent.Services;
 
 public interface ICurrentUserContext
 {

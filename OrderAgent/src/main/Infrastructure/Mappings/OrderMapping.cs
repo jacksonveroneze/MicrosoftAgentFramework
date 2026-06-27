@@ -14,10 +14,10 @@ internal sealed class OrderMapping : IEntityTypeConfiguration<Order>
 
         builder.HasKey(order => order.Id);
 
-        builder.Property(order => order.UserId)
-            .IsRequired();
-
         builder.Property(order => order.AccountId)
+            .IsRequired();
+        
+        builder.Property(order => order.UserId)
             .IsRequired();
 
         builder.Property(order => order.Ticker)
@@ -25,18 +25,15 @@ internal sealed class OrderMapping : IEntityTypeConfiguration<Order>
             .IsRequired();
 
         builder.Property(order => order.Side)
-            .HasConversion<string>()
-            .HasMaxLength(10)
+            .HasConversion<int>()
             .IsRequired();
 
         builder.Property(order => order.OrderType)
-            .HasConversion<string>()
-            .HasMaxLength(20)
+            .HasConversion<int>()
             .IsRequired();
 
         builder.Property(order => order.Status)
-            .HasConversion<string>()
-            .HasMaxLength(20)
+            .HasConversion<int>()
             .IsRequired();
 
         builder.Property(order => order.Quantity)

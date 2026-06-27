@@ -3,6 +3,7 @@ using JacksonVeroneze.OrderAgent.Application.Abstractions.Repositories;
 using JacksonVeroneze.OrderAgent.Application.Abstractions.Services;
 using JacksonVeroneze.OrderAgent.Application.v1.Orders.GetByAsset;
 using JacksonVeroneze.OrderAgent.Application.v1.Orders.GetById;
+using JacksonVeroneze.OrderAgent.Application.v1.Orders.GetOpen;
 using JacksonVeroneze.OrderAgent.Infrastructure.Repositories.Order;
 using JacksonVeroneze.OrderAgent.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ public static class AppServicesExtensions
 
         services.AddScoped<IGetByIdOrderUseCase, GetByIdOrderUseCase>();
         services.AddScoped<IGetOrdersByAssetUseCase, GetOrdersByAssetUseCase>();
+        services.AddScoped<IGetOrdersOpenUseCase, GetOrdersOpenUseCase>();
 
         return services;
     }

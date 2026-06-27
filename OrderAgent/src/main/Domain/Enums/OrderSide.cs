@@ -2,6 +2,7 @@ namespace JacksonVeroneze.OrderAgent.Domain.Enums;
 
 public enum OrderSide
 {
-    Buy = 0,
-    Sell = 1
+    None = 0,
+    Buy = 1,
+    Sell = 2
 }

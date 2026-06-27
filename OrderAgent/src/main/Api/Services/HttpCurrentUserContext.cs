@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using JacksonVeroneze.OrderAgent.Agent;
+using JacksonVeroneze.OrderAgent.Agent.Services;
 
 namespace JacksonVeroneze.OrderAgent.Api.Services;
 

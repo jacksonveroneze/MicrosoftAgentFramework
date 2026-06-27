@@ -1,4 +1,4 @@
-using JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+using JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 

@@ -2,10 +2,11 @@ namespace JacksonVeroneze.OrderAgent.Domain.Enums;
 
 public enum OrderStatus
 {
-    Pending = 0,
-    Open = 1,
-    PartiallyFilled = 2,
-    Filled = 3,
-    Cancelled = 4,
-    Rejected = 5
+    None = 0,
+    Pending = 1,
+    Open = 2,
+    PartiallyFilled = 3,
+    Filled = 4,
+    Cancelled = 5,
+    Rejected = 6,
 }

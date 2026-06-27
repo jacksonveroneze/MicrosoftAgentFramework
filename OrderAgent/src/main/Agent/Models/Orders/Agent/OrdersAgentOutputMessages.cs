@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+namespace JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 
 internal static class OrdersAgentOutputMessages
 {

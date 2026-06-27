@@ -13,7 +13,9 @@ public static class AgentExtensions
     public static IServiceCollection AddOrdersAgent(
         this IServiceCollection services)
     {
-        services.AddScoped<CheckOrdersByAssetTool>();
+        services.AddScoped<CheckOrdersByTickerTool>();
+        services.AddScoped<GetOpenOrdersTool>();
+        
         services.AddScoped<OrdersAgentBuilder>();
         
         services.AddScoped<IOrdersAgent, OrdersAgent>();
@@ -22,10 +24,11 @@ public static class AgentExtensions
             .GetRequiredService<OrdersAgentBuilder>()
             .Build());
 
-        services.AddScoped<AllowedToolsMiddleware>(_ =>
+        services.AddSingleton<AllowedToolsMiddleware>(_ =>
         {
             string[] allowedTools = [
-                OrdersAgentToolConsts.CheckOrdersByAssetName,
+                CheckOrdersByTickerTool.ToolName,
+                GetOpenOrdersTool.ToolName,
             ];
             
             var readSet = new HashSet<string>(

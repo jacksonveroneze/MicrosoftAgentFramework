@@ -1,6 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using JacksonVeroneze.NET.EntityFramework.Interfaces;
 using JacksonVeroneze.OrderAgent.Application.Abstractions.Repositories;
+using JacksonVeroneze.OrderAgent.Application.v1.Orders.Common.Filters;
+using JacksonVeroneze.OrderAgent.Infrastructure.Builders.Filters;
 using JacksonVeroneze.OrderAgent.Infrastructure.Contexts;
 
 namespace JacksonVeroneze.OrderAgent.Infrastructure.Repositories.Order;
@@ -34,5 +36,23 @@ public class OrderRepository(
             cancellationToken);
 
         return (int)result;
+    }
+
+    public Task<ICollection<Domain.Entities.Order>> GetByFilterAsync(
+        OrderFilter filter, 
+        CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(filter);
+
+        var expression = OrderFilterBuilder
+            .Create(filter).Build();
+
+        var result = efRepository.GetAllAsync(
+            expression,
+            order => order.Id,
+            100,
+            cancellationToken: cancellationToken);
+
+        return result;
     }
 }

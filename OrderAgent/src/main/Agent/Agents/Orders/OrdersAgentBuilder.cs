@@ -11,7 +11,8 @@ namespace JacksonVeroneze.OrderAgent.Agent.Agents.Orders;
 
 internal sealed class OrdersAgentBuilder(
     IChatClient chatClient,
-    CheckOrdersByAssetTool checkOrdersByAssetTool,
+    CheckOrdersByTickerTool checkOrdersByTickerTool,
+    GetOpenOrdersTool getOpenOrdersTool,
     AllowedToolsMiddleware allowedToolsMiddleware,
     IServiceProvider serviceProvider,
     ILoggerFactory loggerFactory,
@@ -33,7 +34,8 @@ internal sealed class OrdersAgentBuilder(
                     Instructions = OrdersAgentInstructions.SystemPrompt,
                     Tools =
                     [
-                        BuildCheckOrdersByAssetFunction(),
+                        BuildCheckOrdersByTickerFunction(),
+                        BuildGetOpenOrdersFunction(),
                     ],
                     ToolMode = ChatToolMode.Auto,
                     AllowMultipleToolCalls = false,
@@ -56,16 +58,29 @@ internal sealed class OrdersAgentBuilder(
         return agent;
     }
 
-    private AIFunction BuildCheckOrdersByAssetFunction()
+    private AIFunction BuildCheckOrdersByTickerFunction()
     {
-        AIFunction checkOrdersByAssetFunction = AIFunctionFactory.Create(
-            checkOrdersByAssetTool.CheckOrdersByAssetAsync,
+        AIFunction function = AIFunctionFactory.Create(
+            checkOrdersByTickerTool.CheckOrdersByTickerAsync,
             new AIFunctionFactoryOptions
             {
-                Name = OrdersAgentToolConsts.CheckOrdersByAssetName,
-                Description = OrdersAgentToolConsts.CheckOrdersByAssetDescription,
+                Name = CheckOrdersByTickerTool.ToolName,
+                Description = CheckOrdersByTickerTool.ToolDescription,
             });
 
-        return checkOrdersByAssetFunction;
+        return function;
+    }
+    
+    private AIFunction BuildGetOpenOrdersFunction()
+    {
+        AIFunction function = AIFunctionFactory.Create(
+            getOpenOrdersTool.GetOpenOrdersAsync,
+            new AIFunctionFactoryOptions
+            {
+                Name = GetOpenOrdersTool.ToolName,
+                Description = GetOpenOrdersTool.ToolDescription,
+            });
+
+        return function;
     }
 }

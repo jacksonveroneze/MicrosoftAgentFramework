@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+namespace JacksonVeroneze.OrderAgent.Agent.Models.Orders.CheckOrdersByTicker;
 
 internal sealed record CheckOrdersByAssetToolResult(
     bool Success,

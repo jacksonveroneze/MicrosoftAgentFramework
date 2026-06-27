@@ -1,4 +1,4 @@
-using JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+using JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 
 namespace JacksonVeroneze.OrderAgent.Agent.Agents.Orders;
 

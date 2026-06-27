@@ -1,15 +1,20 @@
 using System.ComponentModel;
-using JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+using JacksonVeroneze.OrderAgent.Agent.Models.Orders.CheckOrdersByTicker;
 using JacksonVeroneze.OrderAgent.Agent.Sanitizers;
+using JacksonVeroneze.OrderAgent.Agent.Services;
 using JacksonVeroneze.OrderAgent.Agent.Validators;
 using JacksonVeroneze.OrderAgent.Application.v1.Orders.GetByAsset;
 
 namespace JacksonVeroneze.OrderAgent.Agent.Tools.Orders;
 
-internal sealed class CheckOrdersByAssetTool(
+internal sealed class CheckOrdersByTickerTool(
     ICurrentUserContext currentUserContext,
     IGetOrdersByAssetUseCase useCase)
 {
+    internal const string ToolName = "check_orders_by_ticker";
+    internal const string ToolDescription = 
+        "Verifica se o usuário autenticado possui ordem para o ticker informado.";
+    
     private const string ParamTickerDescription =
         "Ticker do ativo informado pelo usuário. Exemplos: PETR4, VALE3, ITUB4.";
 
@@ -22,8 +27,8 @@ internal sealed class CheckOrdersByAssetTool(
     private const string TemplateHasOrders = "O usuário possui {0} ordem(ns) para {1}.";
     private const string TemplateNoHasOrders = "O usuário não possui ordens para {0}.";
 
-    [Description(OrdersAgentToolConsts.CheckOrdersByAssetDescription)]
-    internal async Task<CheckOrdersByAssetToolResult> CheckOrdersByAssetAsync(
+    [Description(ToolDescription)]
+    internal async Task<CheckOrdersByAssetToolResult> CheckOrdersByTickerAsync(
         [Description(ParamTickerDescription)] string assetTicker,
         CancellationToken cancellationToken)
     {

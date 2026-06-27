@@ -1,6 +1,6 @@
 using Microsoft.Agents.AI;
 
-namespace JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+namespace JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 
 public sealed record OrdersAgentInput(
     string Prompt,

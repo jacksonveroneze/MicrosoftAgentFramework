@@ -1,5 +1,5 @@
-using JacksonVeroneze.OrderAgent.Agent;
 using JacksonVeroneze.OrderAgent.Agent.Extensions;
+using JacksonVeroneze.OrderAgent.Agent.Services;
 using JacksonVeroneze.OrderAgent.Api.Middlewares;
 using JacksonVeroneze.OrderAgent.Api.Services;
 using JacksonVeroneze.OrderAgent.Infrastructure.Configurations;

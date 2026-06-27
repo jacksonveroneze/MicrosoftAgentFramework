@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using FluentValidation;
 using JacksonVeroneze.OrderAgent.Agent.Agents.Orders;
-using JacksonVeroneze.OrderAgent.Agent.Models.Orders;
+using JacksonVeroneze.OrderAgent.Agent.Models.Orders.Agent;
 using JacksonVeroneze.OrderAgent.Api.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using OrdersAgentRequest = JacksonVeroneze.OrderAgent.Api.Endpoints.Agents.Orders.v1.Models.OrdersAgentRequest;
