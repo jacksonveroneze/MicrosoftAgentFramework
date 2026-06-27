@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.OrderAgent.Agent.Tools;
+namespace JacksonVeroneze.OrderAgent.Agent.Tools.Orders;
 
 internal static class OrdersAgentToolConsts
 {

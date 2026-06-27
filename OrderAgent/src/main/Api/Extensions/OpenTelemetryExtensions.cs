@@ -4,6 +4,7 @@ using OpenTelemetry;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 namespace JacksonVeroneze.OrderAgent.Api.Extensions;
 
@@ -44,11 +45,25 @@ public static class OpenTelemetryExtensions
         private IOpenTelemetryBuilder AddMetrics()
         {
             builder.WithMetrics(opts => opts
+                .AddMeter("orders-agent")
                 .AddProcessInstrumentation()
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddRuntimeInstrumentation()
                 .AddPrometheusExporter());
+
+            return builder;
+        }
+        
+        private IOpenTelemetryBuilder AddTracing()
+        {
+            builder.WithTracing(tracing =>
+            {
+                tracing
+                    .AddSource("orders-agent")
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation();
+            });
 
             return builder;
         }

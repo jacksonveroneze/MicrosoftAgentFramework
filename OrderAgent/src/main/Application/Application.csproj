@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Mapster" />
+    <PackageReference Include="FluentValidation" />
     <PackageReference Include="JacksonVeroneze.NET.Pagination"/>
   </ItemGroup>
   

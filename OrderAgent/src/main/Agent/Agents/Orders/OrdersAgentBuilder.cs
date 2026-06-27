@@ -1,24 +1,28 @@
-using JacksonVeroneze.OrderAgent.Agent.Instructions;
+using JacksonVeroneze.OrderAgent.Agent.Instructions.Orders;
 using JacksonVeroneze.OrderAgent.Agent.Middleware;
-using JacksonVeroneze.OrderAgent.Agent.Tools;
+using JacksonVeroneze.OrderAgent.Agent.Middleware.Orders;
+using JacksonVeroneze.OrderAgent.Agent.Tools.Orders;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace JacksonVeroneze.OrderAgent.Agent.Agents;
+namespace JacksonVeroneze.OrderAgent.Agent.Agents.Orders;
 
 internal sealed class OrdersAgentBuilder(
     IChatClient chatClient,
     CheckOrdersByAssetTool checkOrdersByAssetTool,
+    AllowedToolsMiddleware allowedToolsMiddleware,
     IServiceProvider serviceProvider,
-    ILoggerFactory loggerFactory)
+    ILoggerFactory loggerFactory,
+    IHostEnvironment hostEnvironment)
 {
     private const string AgentName = "orders-agent";
     private const string AgentDescription = "Agent de consulta de existência de ordens por ativo.";
 
     internal AIAgent Build()
     {
-        var baseAgent = new ChatClientAgent(
+        var chatClientAgent = new ChatClientAgent(
             chatClient,
             new ChatClientAgentOptions
             {
@@ -37,10 +41,16 @@ internal sealed class OrdersAgentBuilder(
                 },
             }, loggerFactory, serviceProvider);
 
-        var agent = baseAgent
+        var agent = chatClientAgent
             .AsBuilder()
+            .UseOpenTelemetry(
+                sourceName: AgentName, 
+                configure: cfg =>
+                {
+                    cfg.EnableSensitiveData = hostEnvironment.IsDevelopment();
+                })
             .Use(runFunc: OrdersAgentGuardrails.ValidateAgentRunAsync, runStreamingFunc: null)
-            .Use(OrdersAgentGuardrails.ValidateFunctionCallAsync)
+            .Use(allowedToolsMiddleware.ValidateFunctionCallAsync)
             .Build();
 
         return agent;

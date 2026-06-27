@@ -10,7 +10,6 @@ public static class AuthenticationExtensions
 {
     public static IServiceCollection AddAuthentication(
         this IServiceCollection services,
-        IConfiguration configuration,
         AppConfiguration appConfiguration)
     {
         ArgumentNullException.ThrowIfNull(appConfiguration);

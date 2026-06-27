@@ -10,15 +10,9 @@ internal sealed class OrderMapping : IEntityTypeConfiguration<Order>
     {
         ArgumentNullException.ThrowIfNull(builder);
 
-        builder.ToTable("order", "order");
+        builder.ToTable("order", "rv");
 
-        builder.HasKey(order => order.Id)
-            .HasName("pk_order");
-
-        builder.Property<int>("Version")
-            .HasColumnName("version")
-            .IsConcurrencyToken()
-            .HasDefaultValue(1);
+        builder.HasKey(order => order.Id);
 
         builder.Property(order => order.UserId)
             .IsRequired();
@@ -26,7 +20,7 @@ internal sealed class OrderMapping : IEntityTypeConfiguration<Order>
         builder.Property(order => order.AccountId)
             .IsRequired();
 
-        builder.Property(order => order.AssetTicker)
+        builder.Property(order => order.Ticker)
             .HasMaxLength(10)
             .IsRequired();
 
@@ -81,7 +75,10 @@ internal sealed class OrderMapping : IEntityTypeConfiguration<Order>
 
         builder.Property(order => order.CancelledAtUtc);
 
-        builder.HasIndex(order => new { order.UserId, order.AssetTicker })
-            .HasDatabaseName("ix_order_user_id_asset_ticker");
+        builder.HasIndex(order => new { order.AccountId, order.UserId, order.Ticker });
+        
+        builder.Property(order => order.Version)
+            .IsConcurrencyToken()
+            .HasDefaultValue(1);
     }
 }

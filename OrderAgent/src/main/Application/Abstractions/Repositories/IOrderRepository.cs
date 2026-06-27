@@ -9,7 +9,8 @@ public interface IOrderRepository
         CancellationToken cancellationToken);
 
     Task<int> CountByTickerAsync(
-        string ticker,
+        Guid accountId,
         Guid userId,
+        string ticker,
         CancellationToken cancellationToken);
 }

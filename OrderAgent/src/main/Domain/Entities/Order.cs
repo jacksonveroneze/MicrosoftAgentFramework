@@ -11,7 +11,7 @@ public sealed class Order : Entity
 
     public Guid AccountId { get; init; }
 
-    public string AssetTicker { get; init; } = string.Empty;
+    public string Ticker { get; init; } = string.Empty;
 
     public OrderSide Side { get; init; }
 

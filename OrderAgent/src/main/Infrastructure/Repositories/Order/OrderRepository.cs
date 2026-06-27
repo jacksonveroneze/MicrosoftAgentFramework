@@ -22,13 +22,15 @@ public class OrderRepository(
     }
 
     public async Task<int> CountByTickerAsync(
-        string ticker,
+        Guid accountId,
         Guid userId,
+        string ticker,
         CancellationToken cancellationToken)
     {
         var result = await efRepository.CountAsync(
-            order => order.AssetTicker == ticker
-                     && order.UserId == userId,
+            order => order.AccountId == accountId
+                     && order.UserId == userId
+                     && order.Ticker == ticker,
             cancellationToken);
 
         return (int)result;

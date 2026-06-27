@@ -1,4 +1,4 @@
-namespace JacksonVeroneze.OrderAgent.Agent.Instructions;
+namespace JacksonVeroneze.OrderAgent.Agent.Instructions.Orders;
 
 internal static class OrdersAgentInstructions
 {

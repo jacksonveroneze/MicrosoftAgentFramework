@@ -1,9 +1,8 @@
-using JacksonVeroneze.OrderAgent.Agent.Models;
-using JacksonVeroneze.OrderAgent.Agent.Tools;
+using JacksonVeroneze.OrderAgent.Agent.Models.Orders;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 
-namespace JacksonVeroneze.OrderAgent.Agent.Middleware;
+namespace JacksonVeroneze.OrderAgent.Agent.Middleware.Orders;
 
 internal static class OrdersAgentGuardrails
 {
@@ -33,51 +32,28 @@ internal static class OrdersAgentGuardrails
         ArgumentNullException.ThrowIfNull(messages);
         ArgumentNullException.ThrowIfNull(innerAgent);
 
-        var userMessage = messages
+        IEnumerable<ChatMessage> chatMessages = messages 
+            as ChatMessage[] ?? messages.ToArray();
+       
+        var userMessage = chatMessages
             .LastOrDefault(message => message.Role == ChatRole.User)
             ?.Text ?? string.Empty;
 
         if (!HasForbiddenIntent(userMessage))
         {
             return innerAgent.RunAsync(
-                messages, session, options, cancellationToken);
+                chatMessages, session, options, cancellationToken);
         }
 
         AgentResponse response = new(
         [
             new ChatMessage(
                 ChatRole.Assistant,
-                OrdersAgentResponseMessages.SafeRefusalMessage),
+                OrdersAgentOutputMessages.SafeRefusalMessage),
         ]);
 
         return Task.FromResult(response);
 
-    }
-
-    internal static async ValueTask<object?> ValidateFunctionCallAsync(
-        AIAgent agent,
-        FunctionInvocationContext context,
-        Func<FunctionInvocationContext, CancellationToken, ValueTask<object?>> next,
-        CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(agent);
-        ArgumentNullException.ThrowIfNull(context);
-        ArgumentNullException.ThrowIfNull(next);
-
-        if (!string.Equals(
-                context.Function.Name,
-                OrdersAgentToolConsts.CheckOrdersByAssetName,
-                StringComparison.Ordinal))
-        {
-            return new CheckOrdersByAssetToolResult(
-                Success: false,
-                AssetTicker: string.Empty,
-                HasOrders: false,
-                OrdersCount: 0,
-                Message: OrdersAgentResponseMessages.SafeRefusalMessage);
-        }
-
-        return await next(context, cancellationToken).ConfigureAwait(false);
     }
 
     private static bool HasForbiddenIntent(string userMessage)

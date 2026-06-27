@@ -1,8 +1,5 @@
 <Solution>
   <Folder Name="/SolutionItems/">
-    <File Path="../.gitattributes" />
-    <File Path="../.gitignore" />
-    <File Path="../LICENSE" />
     <File Path="..\..\.gitattributes" />
     <File Path="..\..\.gitignore" />
     <File Path="..\CLAUDE.md" />

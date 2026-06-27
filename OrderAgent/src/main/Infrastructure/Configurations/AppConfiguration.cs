@@ -15,6 +15,8 @@ public sealed record AppConfiguration
 
     public DatabaseConfiguration? Database { get; init; }
     
+    public AiConfiguration? Ai { get; init; }
+    
     public string AppName =>
         Application!.Name!;
 

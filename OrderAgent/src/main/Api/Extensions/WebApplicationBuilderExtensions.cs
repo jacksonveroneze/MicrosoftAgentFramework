@@ -1,6 +1,10 @@
+using JacksonVeroneze.OrderAgent.Agent;
+using JacksonVeroneze.OrderAgent.Agent.Extensions;
 using JacksonVeroneze.OrderAgent.Api.Middlewares;
+using JacksonVeroneze.OrderAgent.Api.Services;
 using JacksonVeroneze.OrderAgent.Infrastructure.Configurations;
 using JacksonVeroneze.OrderAgent.Infrastructure.Extensions;
+using OpenTelemetry.Logs;
 
 namespace JacksonVeroneze.OrderAgent.Api.Extensions;
 
@@ -15,29 +19,47 @@ internal static class WebApplicationBuilderExtensions
             var appConfiguration = builder.Configuration
                 .Get<AppConfiguration>()!;
 
-            builder.ConfigureDefaultServices(appConfiguration);
+            builder.ConfigureDefaultServices(appConfiguration, builder.Environment);
 
-            builder.AddLogger(appConfiguration);
+            // builder.AddLogger(appConfiguration);
+
+            builder.Logging.ClearProviders()
+                .AddOpenTelemetry(options =>
+                {
+                    options.IncludeFormattedMessage = true;
+                    options.IncludeScopes = true;
+                    options.ParseStateValues = true;
+                    options.AddConsoleExporter();
+                });
 
             return builder;
         }
 
         private WebApplicationBuilder ConfigureDefaultServices(
-            AppConfiguration appConfiguration)
+            AppConfiguration appConfiguration,
+            IHostEnvironment hostEnvironment
+        )
         {
             builder.Services
+                .AddHttpContextAccessor()
+                .AddScoped<ICurrentUserContext, HttpCurrentUserContext>()
                 .AddProblemDetails()
                 .AddExceptionHandler<CustomExceptionHandler>()
-                .AddAuthentication(builder.Configuration, appConfiguration)
+                .AddAuthentication(appConfiguration)
                 .AddAuthorization(appConfiguration)
+                .AddJsonOptionsSerialize()
+                .AddAppVersioning()
                 .AddRouting()
                 .AddCorrelation()
                 .AddApplicationServices()
                 .AddFluentValidation(AssemblyReference.Assembly)
+                .AddFluentValidation(Application.AssemblyReference.Assembly)
                 .AddMapper(AssemblyReference.Assembly)
                 .AddCached(appConfiguration)
                 .AddOpenTelemetry(appConfiguration)
                 .AddDatabase(appConfiguration, builder.Environment)
+                .AddOllamaChatClient(appConfiguration, hostEnvironment)
+                .AddOrdersAgent()
                 .AddHealthChecks();
 
             return builder;

@@ -11,7 +11,7 @@ public class OrderMapper : IRegister
 
         config.NewConfig<Domain.Entities.Order, OrderResponse>()
             .Map(dest => dest.Id, src => src.Id)
-            .Map(dest => dest.AssetTicker, src => src.AssetTicker)
+            .Map(dest => dest.AssetTicker, src => src.Ticker)
             .Map(dest => dest.Side, src => src.Side)
             .Map(dest => dest.OrderType, src => src.OrderType)
             .Map(dest => dest.Status, src => src.Status)
